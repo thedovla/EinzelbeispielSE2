@@ -43,5 +43,14 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+        Calculate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String result = Matrikelnummer.getText().toString();
+                Calculate ascii = new Calculate(result);
+                Result.setText(ascii.calculateASCII(result));
+
+            }
+        });
     }
 }
