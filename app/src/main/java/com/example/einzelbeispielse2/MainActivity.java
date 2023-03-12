@@ -13,6 +13,7 @@ public class MainActivity extends AppCompatActivity {
     private TextView Result;
     private EditText Matrikelnummer;
     private Button SendMNr;
+    private Button Calculate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,20 +25,22 @@ public class MainActivity extends AppCompatActivity {
         Result = findViewById(R.id.textView3);
         Matrikelnummer = findViewById(R.id.inputText);
         SendMNr = findViewById(R.id.button);
+        Calculate = findViewById(R.id.button2);
 
         SendMNr.setOnClickListener(new View.OnClickListener() {
-            String result = Matrikelnummer.getText().toString();
             @Override
             public void onClick(View v) {
+                String result = Matrikelnummer.getText().toString();
                 TCP client = new TCP(result);
                 Thread t1 = new Thread(client);
                 t1.start();
                 try {
                     t1.join();
+                    Result.setText(client.getModifiedSentence());
                 } catch (InterruptedException e) {
                     throw new RuntimeException(e);
                 }
-                Result.setText(client.getModifiedSentence());
+
             }
         });
     }
